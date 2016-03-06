@@ -27,22 +27,44 @@ function render() {
 
 		$.ajax({url: queryURL, method: "GET"}).done(function(gif) {
 			console.log(gif);
+			console.log(queryURL);
 
 			// for (var i = 0; i < 10; i++) {
 			// 	$("#gifArea").append("<img src='" + gif.data[i].images.original_still.url + "'>" + gif.data[i].rating);
 			// };
+
 
 			for (var i = 0; i < 10; i++) {
 
 				animatedURL.push(gif.data[i].images.fixed_height.url);
 				staticURL.push(gif.data[i].images.fixed_height_still.url);
 
+
+				var newDiv = $("<div>");
+				newDiv.addClass("gifDiv")
+
+				var p = $("<p>");
+				p.text(gif.data[i].rating);
+
+				if (gif.data[i].rating == "") {
+					p.text("n/a")
+				};
+
 				var newGif = $("<img>");
 
 				newGif.attr("data-number", i)
 
 				newGif.attr("src", gif.data[i].images.fixed_height_still.url);
-				$("#gifArea").append(newGif);
+
+
+				newDiv.append(p);
+				newDiv.append(newGif);
+				$("#gifArea").append(newDiv);
+
+				// $("#gifArea").append(newGif);
+
+
+
 
 				newGif.click(function() {
 					// this.attr("src", gif.data[i].images.original.url)
@@ -58,6 +80,37 @@ function render() {
 				});
 
 			};
+
+
+
+
+
+			// for (var i = 0; i < 10; i++) {
+
+			// 	animatedURL.push(gif.data[i].images.fixed_height.url);
+			// 	staticURL.push(gif.data[i].images.fixed_height_still.url);
+
+			// 	var newGif = $("<img>");
+
+			// 	newGif.attr("data-number", i)
+
+			// 	newGif.attr("src", gif.data[i].images.fixed_height_still.url);
+			// 	$("#gifArea").append(newGif);
+
+			// 	newGif.click(function() {
+			// 		// this.attr("src", gif.data[i].images.original.url)
+			// 		// $(this).attr("src", gif.data[i].images.original.url)
+			// 		if ( $(this).attr("src") == staticURL[$(this).attr("data-number")] ) {
+			// 			$(this).attr("src", animatedURL[$(this).attr("data-number")])
+			// 		} else {
+			// 			$(this).attr("src", staticURL[$(this).attr("data-number")]);
+			// 		};
+
+
+			// 		// $(this).attr("src", animatedURL[$(this).attr("data-number")])
+			// 	});
+
+			// };
 
 
 		});

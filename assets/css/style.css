@@ -9,3 +9,8 @@ button {
 #gifArea {
 	background-color: lightblue;
 }
+
+.gifDiv {
+	float: left;
+	margin:5px;
+}
